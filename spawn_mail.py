@@ -33,4 +33,5 @@ def fake_addresses(count=20, sep=', ', markup=False):
     return sep.join(addresses)
 
 if __name__ == '__main__':
-    print fake_addresses(sep='\n')
+    with open("email_list.txt", "a") as myfile:
+        myfile.write(fake_addresses(sep='\n'))
