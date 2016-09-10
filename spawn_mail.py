@@ -5,6 +5,7 @@ domain = domain_file = email_count = ''
 parser = argparse.ArgumentParser()
 parser.add_argument('-c', help='int value number of max emails outputted DEFAULT: length of name list')
 parser.add_argument('-d', help='str value of the domain associated with the emails DEFAULT: AOL.com')
+parser.add_argument('-n', help='str value of the path to name list (one name per line txt file)')
 args = parser.parse_args()
 
 
@@ -14,6 +15,7 @@ args = parser.parse_args()
 def main():
 
 	domain = args.d if args.d else 'aol.com'
+	names = args.n
 	email_count = args.c if args.c else 'default'
 	domain_file = 'email_lists/' + domain.replace('.', '') + '.txt'
 	domain = '@' + domain
@@ -25,7 +27,7 @@ def main():
 			target.write(email)
 			target.write('\n')
 
-	with open("names/first_names.txt", "r") as ins:
+	with open(names, "r") as ins:
 		emails = []
 		for line in ins:
 			if email_count != 'default':
