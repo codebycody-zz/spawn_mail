@@ -1,4 +1,4 @@
-import sys, getopt, argparse
+import sys, os, getopt, argparse
 
 domain = domain_file = email_count = ''
 
@@ -14,13 +14,16 @@ args = parser.parse_args()
 
 def main():
 
-	domain = args.d if args.d else 'aol.com'
-	names = args.n
+	domain      = args.d if args.d else 'aol.com'
+	names       = args.n if args.n else './names/first_names.txt'
 	email_count = args.c if args.c else 'default'
 	domain_file = 'email_lists/' + domain.replace('.', '') + '.txt'
-	domain = '@' + domain
+	domain      = '@' + domain
 
 	def printEmails(emails):
+		if not os.path.exists('email_lists'):
+			os.makedirs('email_lists')
+
 		target = open(domain_file, 'w+')
 
 		for email in emails:
@@ -35,7 +38,7 @@ def main():
 					break
 
 			email = line.rstrip('\n') + domain
-			emails.append(email)
+			emails.append(str.lower(email))
 
 	printEmails(emails)
 	print('email list done.')
